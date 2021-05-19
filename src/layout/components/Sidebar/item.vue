@@ -1,14 +1,13 @@
 <template>
   <div class="menu-wrapper">
     <template v-for="route in isShow(routes)" :key="route.name">
-      <el-submenu :key="route.name" :index="route.path">
+      <el-submenu :index="route.path">
         <template #title>
           <span>{{ route.meta.title }}</span>
         </template>
         <template v-for="child in route.children" :key="child.name">
           <sidebar-item
             v-if="child.children && child.children.length > 0"
-            :key="child.name"
             class="nest-menu"
             :routes="[child]"
             :base-path="resolveBasePath(route.path)"
@@ -41,6 +40,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
+
 import path from 'path'
 
 type RouteRecordRawItem = RouteRecordRaw & {
