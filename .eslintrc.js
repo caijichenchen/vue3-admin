@@ -20,18 +20,20 @@ module.exports = {
   rules: {
     // js/ts
     '@typescript-eslint/no-var-requires': 0,
-    'eol-last': 'error',
-    'no-trailing-spaces': 'error',
-    'comma-style': ['error', 'last'],
-    'comma-dangle': ['error', 'always-multiline'],
+    'eol-last': 'error', // 结尾语句换行符
+    'no-trailing-spaces': 'error', // 禁用行尾空格
+    'comma-style': ['error', 'last'], // 强制使用一致的逗号风格
+    'comma-dangle': ['error', 'always-multiline'], // 要求或禁止末尾逗号
     quotes: [
       'error',
       'single',
       { avoidEscape: true, allowTemplateLiterals: true },
-    ],
+    ], // 强制使用一致的反勾号、双引号或单引号
     camelcase: ['error', { properties: 'never' }],
     semi: ['error', 'never'],
-    indent: ['error', 2, { SwitchCase: 1 }],
+    // indent: ['error', 2, { SwitchCase: 1 }],
+    indent: 'off',
+    '@typescript-eslint/indent': ['error', 2],
     'object-curly-spacing': ['error', 'always'],
     'arrow-parens': ['error', 'as-needed'],
     '@typescript-eslint/explicit-module-boundary-types': 'off',

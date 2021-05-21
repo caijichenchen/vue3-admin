@@ -20,7 +20,7 @@ import Navbar from './components/Navbar/index.vue'
 import AppMain from './components/AppMain/index.vue'
 import Sidebar from './components/Sidebar/index.vue'
 export default defineComponent({
-  components: { Navbar, AppMain, Sidebar },
+  components: { AppMain, Sidebar, Navbar },
   setup() {
     const { sidebarOpen } = useSidebarOpen()
     return {
