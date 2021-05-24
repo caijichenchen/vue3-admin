@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+#!// 当执行git commit -m 'xxx'时 会对src下所有的.vue.js.ts执行eslint --fix  yes通过commit no终止commit
+eslint --fix ./src --ext .vue,.js,.ts
+
+# npm test
+npx lint-staged
