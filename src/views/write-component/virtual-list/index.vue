@@ -1,9 +1,6 @@
 <template>
   <div ref="vlist" class="virtual-list-wrapper" @scroll="listenScroll">
-    <div
-      class="virtual-list-phantom"
-      :style="{ height: listHeight + 'px' }"
-    ></div>
+    <div class="virtual-list-phantom" :style="{ height: listHeight + 'px' }" />
     <div class="virtual-list" :style="{ transform: transformStyle }">
       <div
         v-for="item in visibleListData"

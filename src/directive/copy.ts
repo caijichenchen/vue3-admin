@@ -1,10 +1,9 @@
 import type { ObjectDirective } from 'vue'
 
-
 const copy: ObjectDirective = {
   beforeMount(el, binding) {
     const { value } = binding
-    if(!value) {
+    if (!value) {
       return console.log('无copy内容')
     }
     el.$value = value
@@ -17,7 +16,7 @@ const copy: ObjectDirective = {
       document.body.appendChild(textarea)
       textarea.select()
       const result = document.execCommand('Copy')
-      if(result) {
+      if (result) {
         console.log('复制成功')
       }
       document.body.removeChild(textarea)

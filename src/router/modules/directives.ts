@@ -4,7 +4,7 @@ export default {
   name: 'directives',
   component: Layout,
   meta: { title: '自定义指令' },
-  children: (pre => [
+  children: ((pre) => [
     {
       path: 'copy',
       name: `${pre}-copy`,
@@ -16,6 +16,12 @@ export default {
       name: `${pre}-permission`,
       meta: { title: '权限' },
       component: () => import('@/views/directive/permission/index.vue'),
+    },
+    {
+      path: 'waves',
+      name: `${pre}-waves`,
+      meta: { title: '波纹' },
+      component: () => import('@/views/directive/waves/index.vue'),
     },
   ])('directives'),
 }

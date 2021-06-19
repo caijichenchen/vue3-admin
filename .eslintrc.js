@@ -36,7 +36,7 @@ module.exports = {
     indent: 'off',
     '@typescript-eslint/indent': ['error', 2],
     'object-curly-spacing': ['error', 'always'],
-    'arrow-parens': ['error', 'as-needed'],
+    'arrow-parens': ['error', 'always'], // argument 括号
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/member-delimiter-style': [
@@ -59,10 +59,12 @@ module.exports = {
       'error',
       {
         html: {
-          void: 'never',
-          normal: 'never',
+          void: 'always',
+          normal: 'always',
           component: 'always',
         },
+        svg: 'always',
+        math: 'always',
       },
     ],
     'vue/max-attributes-per-line': [

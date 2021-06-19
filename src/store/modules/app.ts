@@ -8,12 +8,11 @@ export default {
   },
   mutations: {
     TOGGLE_SIDBAR(state) {
-      if(state.sidebar.opend === 1) {
+      if (state.sidebar.opend === 1) {
         Cookies.set('sidebarStatus', 0)
-      }else {
+      } else {
         Cookies.set('sidebarStatus', 1)
       }
-
     },
   },
   actions: {

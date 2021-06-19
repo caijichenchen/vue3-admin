@@ -10,14 +10,14 @@ export default {
   children: [
     {
       component: () => import('@/views/home/index.vue'),
-      meta: { title:'首页' },
+      meta: { title: '首页' },
       path: 'home',
       name: 'home',
       hidden: false,
     },
     {
       component: () => import('@/views/home/test.vue'),
-      meta: { title:'首页23' },
+      meta: { title: '首页23' },
       path: 'test',
       name: 'test',
       hidden: false,
