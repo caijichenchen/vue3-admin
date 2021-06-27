@@ -32,9 +32,10 @@ module.exports = {
     ], // 强制使用一致的反勾号、双引号或单引号
     camelcase: ['error', { properties: 'never' }],
     semi: ['error', 'never'],
-    // indent: ['error', 2, { SwitchCase: 1 }],
-    indent: 'off',
-    '@typescript-eslint/indent': ['error', 2],
+    // indent: ['error', 2, { SwitchCase: 2, offsetTernaryExpressions: true }],
+    indent: 0,
+    // '@typescript-eslint/indent': ['error', 12],
+    // '@typescript-eslint/indent': ['error'],
     'object-curly-spacing': ['error', 'always'],
     'arrow-parens': ['error', 'always'], // argument 括号
     '@typescript-eslint/explicit-module-boundary-types': 'off',

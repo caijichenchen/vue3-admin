@@ -6,6 +6,7 @@
   background-position: center;
   overflow: hidden;
   position: relative;
+  will-change: transform;
 
   .vd-layout-mask {
     @extend %full;
@@ -22,19 +23,141 @@
       height: 60px;
       display: flex;
 
+      .toggle-btn {
+        @extend %flex-row-center;
+        @extend %unable-select;
+        width: 60px;
+        height: 60px;
+        font-size: $c-font-size-lg;
+      }
+
       .header-right {
         height: 100%;
         float: right;
         display: flex;
-        flex: 1;
         align-items: center;
+        padding-right: $c-spacing-col-normal;
+        margin-left: auto;
 
         .btn-text {
-          margin: 0;
           border-radius: $c-border-radius-xs;
           padding: 5px 8px;
+          min-height: 30px;
+        }
+
+        .el-dropdown {
+          @extend %unable-select;
+        }
+      }
+    }
+
+    .vd-layout__container {
+      flex: 1;
+      display: flex;
+
+      // 侧边栏
+      .vd-container__aside {
+        position: relative;
+        width: $openAsideWidth;
+        transition: width 0.3s;
+        overflow: hidden;
+        .el-menu {
+          // overflow: hidden;
+          border-right: none;
+          background-color: transparent;
+        }
+        // 侧边栏为空
+        .vd-container-aside-empty {
+          @extend %flex-col-center;
+          height: 160px;
+          margin: 0 10px 10px;
+          border-radius: $c-border-radius-xs;
+          @extend %unable-select;
+
+          i {
+            font-size: 32px;
+            margin-bottom: $c-spacing-col-sm;
+          }
+
+          span {
+            font-size: $c-font-size-sm;
+          }
+        }
+        // 正常
+      }
+
+      .vd-container__main {
+        margin-right: $c-spacing-col-normal;
+        display: flex;
+        flex: 1;
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+        flex-direction: column;
+
+        .vd-container__main-header {
+          position: relative;
+          bottom: -1px;
+          height: 41px;
+
+          .vd-visited-group {
+            display: flex;
+
+            .vd-visited-content {
+              flex: 1;
+              display: flex;
+
+              .vd-visited-tabs {
+                .el-tabs__header.is-top {
+                  margin: 0;
+                }
+                .el-tabs__active-bar {
+                  display: none;
+                }
+                .el-tabs__nav {
+                  overflow: hidden;
+                  border: none;
+                }
+                .el-tabs__item:first-child {
+                  border-top-left-radius: 0;
+                }
+              }
+            }
+          }
+
+          .vd-visited-control-btn {
+            position: relative;
+            bottom: -3px;
+
+            .el-button-group {
+              .el-button:first-child {
+                border-bottom-left-radius: 0;
+              }
+              .el-button:last-child {
+                border-bottom-right-radius: 0;
+              }
+            }
+          }
+        }
+
+        .vd-container__main-body {
+          flex: 1;
+          background-color: #fff;
         }
       }
     }
   }
+}
+
+// 框架之外
+.vd-contextmenu-panel {
+  // position: fixed;
+  position: absolute;
+  margin: 0;
+  padding: 5px 0;
+  z-index: 3999;
+  background-color: #fff;
+  border: 1px solid #cfd7e5;
+  border-radius: $c-border-radius-xs;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }

@@ -1,29 +1,42 @@
 <template>
-  <el-table :data="themeList">
+  <el-table :data="list">
     <el-table-column prop="title" label="名称" />
     <el-table-column label="预览" />
     <el-table-column label="操作">
       <template #default="{ row }">
-        <el-button v-if="active === row.title" type="success" round>
-          已激活
+        <el-button
+          :type="isActive(row.name) ? 'success' : ''"
+          round
+          @click="select(row.name)"
+        >
+          {{ isActive(row.name) ? '已激活' : '使用' }}
         </el-button>
-        <el-button v-else round @click="select">使用</el-button>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
-import theme from '@/config/modules/theme'
+import { defineComponent } from 'vue'
 export default defineComponent({
-  setup() {
-    const themeList = reactive(Object.values(theme.map))
-    const active = ref(theme.default)
-    const select = () => {
-      console.log('22')
+  props: {
+    list: {
+      type: Array,
+      default: () => [],
+    },
+    active: {
+      type: String,
+      default: '',
+    },
+  },
+  emits: ['click'],
+  setup(props, { emit }) {
+    const select = (name: string) => {
+      if (isActive(name)) return
+      emit('click', name)
     }
-    return { themeList, active, select }
+    const isActive = (name: string): boolean => props.active === name
+    return { select, isActive }
   },
 })
 </script>

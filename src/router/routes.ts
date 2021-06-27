@@ -1,16 +1,12 @@
-import { RouteRecordRaw } from 'vue-router'
-
-interface RouteMap {
-  [key: string]: RouteRecordRaw
-}
+import { RouteModuleMap, RouteItem } from './router.type'
 
 const files = require.context('./modules', false, /\.ts$/)
-const modules: RouteMap = {}
+const modules: RouteModuleMap = {}
 
 files.keys().forEach((file: string) => {
   modules[file.replace(/(\.\/|\.ts)/g, '')] = files(file).default
 })
 
-const routes: RouteRecordRaw[] = Object.values(modules)
+const routes = Object.values(modules) as RouteItem[]
 
 export default routes

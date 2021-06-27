@@ -1,10 +1,9 @@
 <template>
-  <el-table />
+  <div>崽种</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-// import { mapState } from 'vuex'
 export default defineComponent({
   setup() {
     return {}

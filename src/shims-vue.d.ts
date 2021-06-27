@@ -4,5 +4,6 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+declare module '*.ts'
 
 declare type Nullable<T> = T | null

@@ -1,2 +1,9 @@
 @import './base.scss';
-@import './theme.scss';
+
+// 所有主题
+@import './theme/vd/index.scss';
+@import './theme/line/index.scss';
+@import './theme/star/index.scss';
+@import './theme/gray/index.scss';
+@import './theme/town/index.scss';
+@import './theme/coastal/index.scss';

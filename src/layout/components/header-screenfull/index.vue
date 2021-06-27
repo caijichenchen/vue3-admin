@@ -1,7 +1,7 @@
 <template>
-  <el-tooltip placement="botton" :content="isFull ? '退出全屏' : '全屏'">
+  <el-tooltip :content="isFull ? '退出全屏' : '全屏'" placement="bottom">
     <el-button
-      class="btn-text"
+      class="btn-text can-hover"
       type="text"
       icon="el-icon-full-screen"
       @click="handleClick"

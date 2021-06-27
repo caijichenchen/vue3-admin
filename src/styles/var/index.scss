@@ -1,7 +1,30 @@
+$openAsideWidth: 200px;
+$closeAsideWidth: 65px;
+
+// 填充满父元素
 %full {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
+}
+// 水平垂直居中
+%flex-row-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+// 竖直垂直居中
+%flex-col-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+// 禁止选中 手型
+%unable-select {
+  cursor: pointer;
+  user-select: none;
 }

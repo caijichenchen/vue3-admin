@@ -7,8 +7,8 @@ const setting = require('./src/config/setting.ts')
 module.exports = {
   publicPath: './',
   devServer: {
-    open: true,
-    hot: true,
+    open: true, // 自动打开浏览器 也可以在package.json运行命令（如：serve）后加--open
+    hot: true, // 热更新
   },
   configureWebpack: {
     name: setting.name,

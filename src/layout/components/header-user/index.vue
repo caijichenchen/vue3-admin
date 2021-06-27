@@ -1,5 +1,14 @@
 <template>
-  <div>1</div>
+  <el-dropdown size="mini">
+    <span class="btn-text">您好，崽种</span>
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item command="logout" icon="el-icon-switch-button">
+          退出登录
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
 </template>
 
 <script lang="ts">

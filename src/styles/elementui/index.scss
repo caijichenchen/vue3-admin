@@ -1,0 +1,19 @@
+// Chrome下表格头部错位修复
+.el-table th.gutter,
+.el-table colgroup.gutter {
+  display: table-cell !important;
+}
+
+.el-table__header-wrapper table thead th {
+  background-color: #f6f7fb;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}

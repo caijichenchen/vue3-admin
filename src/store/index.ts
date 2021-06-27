@@ -1,11 +1,8 @@
-import { createStore, Module } from 'vuex'
-
-interface ModuleMap {
-  [key: string]: Module
-}
+import { createStore } from 'vuex'
+import type { ModuleStoreItemMap } from './store.type'
 
 const files = require.context('./modules', false, /\.ts$/)
-const modules: ModuleMap = {}
+const modules: ModuleStoreItemMap = {}
 files.keys().forEach((file: string) => {
   modules[file.replace(/(\.\/|\.ts$)/g, '')] = files(file).default
 })
