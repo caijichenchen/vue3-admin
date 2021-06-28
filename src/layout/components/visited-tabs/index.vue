@@ -122,7 +122,8 @@ export default defineComponent({
 
     const handleContextmenu = (type: string) => {
       contextmenuInfo.visible = false
-      const path = contextmenuInfo.current
+      const path = contextmenuInfo.current || currentRoute.value
+      console.log('2', type)
       if (!path || !type) return
       switch (type) {
         case 'left':

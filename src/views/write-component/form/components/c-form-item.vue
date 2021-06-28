@@ -38,6 +38,7 @@ export default defineComponent({
         schema.validate({ [prop]: value }, { firstFields: true }, (error) => {
           if (error) {
             flag = false
+            // rule.messsage --> string/()=>string/undefined
             errMsg.value = 'error'
           } else {
             errMsg.value = 'success'

@@ -1,6 +1,10 @@
 <template>
   <c-timeline>
-    <c-timeline-item v-for="item in list" :key="item.key">
+    <c-timeline-item
+      v-for="item in list"
+      :key="item.key"
+      :timestamp="item.title"
+    >
       {{ title }}
     </c-timeline-item>
   </c-timeline>
