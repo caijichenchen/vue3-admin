@@ -16,6 +16,7 @@ export type VisitedRouteItem = {
 
 type VisitedRouteState = {
   list: VisitedRouteItem[]
+  current: string
 }
 
 const state: VisitedRouteState = {
@@ -29,6 +30,7 @@ const state: VisitedRouteState = {
       affix: true,
     },
   ],
+  current: '',
 }
 
 type VisitedRouteGetters = {
@@ -42,12 +44,13 @@ const getters: GetterTree<VisitedRouteState, RootState> & VisitedRouteGetters =
 
 type VisitedRouteMutations = {
   addVisitedRoute(state: VisitedRouteState, route: VisitedRouteItem): void
-  deleteSelectVisitedRoute(state: VisitedRouteState, path: string): void
+  deleteSelectVisitedRoute(state: VisitedRouteState, index: number): void
   deleteLeftVisitedRoutes(state: VisitedRouteState, path: string): void
   deleteRightVisitedRoutes(state: VisitedRouteState, path: string): void
   deleteAllVisitedRoutes(state: VisitedRouteState): void
   deleteOtherVisitedRoutes(state: VisitedRouteState, path: string): void
   setDbRoutes(state: VisitedRouteState): void
+  setCurrentPath(state: VisitedRouteState, current: string): void
 }
 
 const mutations: MutationTree<VisitedRouteState> & VisitedRouteMutations = {
@@ -56,9 +59,8 @@ const mutations: MutationTree<VisitedRouteState> & VisitedRouteMutations = {
     state.list.push(route)
   },
   // 删除选中
-  deleteSelectVisitedRoute: (state: VisitedRouteState, path: string) => {
-    const _index = state.list.findIndex((item) => item.path === path)
-    state.list.splice(_index, 1)
+  deleteSelectVisitedRoute: (state: VisitedRouteState, index: number) => {
+    state.list.splice(index, 1)
   },
   // 删除左边
   deleteLeftVisitedRoutes: (state: VisitedRouteState, path: string) => {
@@ -88,6 +90,9 @@ const mutations: MutationTree<VisitedRouteState> & VisitedRouteMutations = {
   setDbRoutes: (state: VisitedRouteState) => {
     setVisitedRoutes(state.list)
   },
+  setCurrentPath: (state: VisitedRouteState, current: string) => {
+    state.current = current
+  },
 }
 
 type VisitedRouteActions = {
@@ -96,48 +101,87 @@ type VisitedRouteActions = {
     { commit, state }: { commit: Commit; state: VisitedRouteState; },
     route: VisitedRouteItem,
   ): void
-  // eslint-disable-next-line @typescript-eslint/member-delimiter-style
-  delSelectRoute({ commit }: { commit: Commit }, value: string): void
+  delSelectRoute(
+    // eslint-disable-next-line @typescript-eslint/member-delimiter-style
+    { commit, state }: { commit: Commit; state: VisitedRouteState },
+    // eslint-disable-next-line prettier/prettier
+     selectedPath: string,
+  ): void
   // eslint-disable-next-line prettier/prettier
-  delLeftRoutes({ commit }: { commit: Commit; }, path: string): void
+  delLeftRoutes({ commit, state }: { commit: Commit; state: VisitedRouteState; }, path: string): void
   // eslint-disable-next-line prettier/prettier
   delRightRoutes({ commit }: { commit: Commit; }, path: string): void
   // eslint-disable-next-line prettier/prettier
   delOtherRoutes({ commit }: { commit: Commit; }, path: string): void
   // eslint-disable-next-line prettier/prettier
-  delAllRoutes({ commit,state }: { commit: Commit;state: VisitedRouteState;}, path: string): void
+  delAllRoutes({ commit,state }: { commit: Commit; state: VisitedRouteState;}, path: string): void
 }
 
+/**
+ * 操作面板及删除会有两种情况
+ * 1.操作当前打开页
+ *  1.1 关闭当前/全部  需要准备下一个页面
+ *  1.2 关闭左边/右边  不需要准备下一个页面
+ * 2.操作非当前页
+ *  2.1 关闭 不需要准备下一个页面
+ *  2.2 关闭全部/左边/右边 需要准备下一个页面
+ */
 const actions: ActionTree<VisitedRouteState, RootState> & VisitedRouteActions =
   {
     addRoute: ({ commit, state }, route: VisitedRouteItem) => {
       const _index = state.list.findIndex((item) => item.path === route.path)
-
       _index <= -1 && commit('addVisitedRoute', route)
-      commit('setDbRoutes')
-    },
-    delSelectRoute({ commit }, value: string) {
-      commit('deleteSelectVisitedRoute', value)
-      commit('setDbRoutes')
-    },
-    delLeftRoutes({ commit }, path: string) {
-      commit('deleteLeftVisitedRoutes', path)
-      commit('setDbRoutes')
-    },
-    delRightRoutes({ commit }, path: string) {
-      commit('deleteRightVisitedRoutes', path)
-      commit('setDbRoutes')
-    },
-    delOtherRoutes({ commit }, path: string) {
-      commit('deleteOtherVisitedRoutes', path)
+      commit('setCurrentPath', route.path)
       commit('setDbRoutes')
     },
     /**
-     * 关闭左侧  关闭右侧  关闭其他 ==> 都只是针对当前tag 不需要准备下一个页面
-     * 关闭全部需要准备下一个页面
+     * 关闭当前页面也需要准备下一个页面
      */
+    delSelectRoute({ commit, state }, selectedPath) {
+      const _index = state.list.findIndex((item) => item.path === selectedPath)
+      if (selectedPath === state.current) {
+        const len = state.list.length
+        const nextIndex = _index === len ? len - 1 : _index
+        const next = state.list[nextIndex]
+        router.push({ path: next.path, query: next.query, params: next.params })
+      }
+      commit('setDbRoutes')
+    },
+    delLeftRoutes({ commit, state }, path: string) {
+      const next = path || state.current
+      const isCurrent = path === state.current
+      commit('deleteLeftVisitedRoutes', path)
+      const isCurrentDeleted =
+        state.list.findIndex((item) => item.path === state.current) < 0
+      if (!isCurrent && isCurrentDeleted) {
+        // 当操作页非当前页 可能当前页也被删除  需准备下一个页面
+        router.push(next)
+      }
+      commit('setDbRoutes')
+    },
+    delRightRoutes({ commit }, path: string) {
+      const next = path || state.current
+      const isCurrent = path === state.current
+      commit('deleteRightVisitedRoutes', path)
+      const isCurrentDeleted =
+        state.list.findIndex((item) => item.path === state.current) < 0
+      if (!isCurrent && isCurrentDeleted) {
+        router.push(next)
+      }
+      commit('setDbRoutes')
+    },
+    delOtherRoutes({ commit }, path: string) {
+      const next = path || state.current
+      const isCurrent = path === state.current
+      commit('deleteOtherVisitedRoutes', path)
+      if (!isCurrent) {
+        router.push(next)
+      }
+      commit('setDbRoutes')
+    },
     delAllRoutes({ commit, state }, path: string) {
       commit('deleteAllVisitedRoutes', path)
+      // 准备下一个页面
       const next = state.list[state.list.length - 1]
       router.push({ path: next.path, query: next.query, params: next.params })
       commit('setDbRoutes')

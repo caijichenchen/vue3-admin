@@ -11,10 +11,10 @@ export interface ThemeType {
 
 const theme: ThemeType = {
   list: [
-    {
-      title: '经典',
-      name: 'vd',
-    },
+    // {
+    //   title: '经典',
+    //   name: 'vd',
+    // },
     {
       title: '线条',
       name: 'line',

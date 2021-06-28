@@ -25,12 +25,12 @@
           :key="item.path"
           :label="item.title"
           :name="item.path"
-          :closable="(tab) => tab.paneName !== '/vd-index'"
+          :closable="item.path !== '/vd-index'"
         />
       </el-tabs>
     </div>
     <div class="vd-visited-control-btn">
-      <el-dropdown split-button size="medium">
+      <el-dropdown split-button size="medium" @command="handleContextmenu">
         <i class="el-icon-circle-close" />
         <template #dropdown>
           <el-dropdown-menu>
@@ -60,6 +60,10 @@ import contextmenuList from '../contextmenu-panel/list'
 export default defineComponent({
   components: { contextmenuPanel, contextmenuList },
   setup() {
+    const store = useStore()
+    const $route = useRoute()
+    const router = useRouter()
+
     const menuList = [
       { icon: 'el-icon-d-arrow-left', content: '关闭左侧', value: 'left' },
       { icon: 'el-icon-d-arrow-right', content: '关闭右侧', value: 'right' },
@@ -72,15 +76,12 @@ export default defineComponent({
       x: 0,
       y: 0,
       visible: false,
-      current: '',
+      current: $route.path,
     })
 
-    const store = useStore()
-    const $route = useRoute()
-    const router = useRouter()
     // const visitedRoutes = store.getters['visited/visitedList']
     const visitedRoutes = computed(() => store.state.visited.list)
-    const currentRoute = computed(() => $route.path)
+    const currentRoute = computed(() => store.state.visited.current)
 
     const handleClick = (tab: any) => {
       const clickTab = tab.paneName
@@ -122,11 +123,9 @@ export default defineComponent({
     const handleContextmenu = (type: string) => {
       contextmenuInfo.visible = false
       const path = contextmenuInfo.current
-      console.log(22222, path, type)
       if (!path || !type) return
       switch (type) {
         case 'left':
-          console.log('66666')
           store.dispatch('visited/delLeftRoutes', path)
           break
         case 'right':
