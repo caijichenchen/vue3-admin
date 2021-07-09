@@ -24,8 +24,8 @@ export default defineComponent({
       age: '',
     })
     const rules = reactive({
-      age: [{ required: true, message: 'iiii', trigger: 'blur' }],
-      name: [{ required: true, message: 'name不能为空', trigger: 'blur' }],
+      age: [{ required: true, message: '年龄不能为空', trigger: 'blur' }],
+      name: [{ required: true, message: '姓名不能为空', trigger: 'blur' }],
     })
     const form = ref<CFormContext | null>(null)
     const submit = () => {

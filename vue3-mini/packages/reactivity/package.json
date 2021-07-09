@@ -1,0 +1,15 @@
+{
+  "name": "@vue3-mini/reactivity",
+  "version": "1.0.0",
+  "main": "index.js",
+  "module": "dist/reactivity.esm-bundler.js",
+  "license": "MIT",
+  "buildOptions": {
+    "name": "Vue3MiniReactivity",
+    "formats": [
+      "cjs",
+      "esm-builder",
+      "global"
+    ]
+  }
+}

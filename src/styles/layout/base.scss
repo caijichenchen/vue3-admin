@@ -85,6 +85,17 @@
         }
         // 正常
       }
+      .vd-container__aside.vd-aside-hidden {
+        width: $closeAsideWidth;
+
+        .el-menu--collapse {
+          background-color: transparent;
+
+          .el-submenu__title {
+            text-align: center;
+          }
+        }
+      }
 
       .vd-container__main {
         margin-right: $c-spacing-col-normal;

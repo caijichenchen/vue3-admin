@@ -1,0 +1,14 @@
+{
+  "name": "@vue3-mini/shared",
+  "version": "1.0.0",
+  "main": "index.js",
+  "module": "dist/shared.esm-bundler.js",
+  "license": "MIT",
+  "buildOptions": {
+    "name": "Vue3MiniShared",
+    "formats": [
+      "cjs",
+      "esm-builder"
+    ]
+  }
+}

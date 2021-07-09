@@ -1,12 +1,10 @@
-<template>
-  <div>崽种</div>
-</template>
-
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { createVNode, defineComponent, h } from 'vue'
+import { ElInput } from 'element-plus'
+
 export default defineComponent({
   setup() {
-    return {}
+    return () => h('el-input', { modelValue: 0 }, {})
   },
 })
 </script>

@@ -9,7 +9,7 @@ import {
   ref,
 } from 'vue'
 import mitt from 'mitt'
-import { CFormContext, ValidateFieldCallback } from './form.type'
+import { CFormContext, ValidateFieldCallback, RuleItem } from './form.type'
 import AsyncValidator from 'async-validator'
 export default defineComponent({
   props: {
@@ -22,31 +22,33 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
     const errMsg = ref('')
     const formItemMitt = mitt()
     const formContext = inject<CFormContext>('c-form')
-
-    const validate = () => {
-      let flag = true
+    const isSuccess = ref(false)
+    const validate = (cb: any) => {
       const prop = props.prop
-      const rule = formContext?.rules[prop]
+      const rule = formContext?.rules[prop] as RuleItem[]
       const value = formContext?.model[prop]
       if (prop && rule) {
         const desc = { [prop]: rule }
         const schema = new AsyncValidator(desc)
         schema.validate({ [prop]: value }, { firstFields: true }, (error) => {
           if (error) {
-            flag = false
-            // rule.messsage --> string/()=>string/undefined
-            errMsg.value = 'error'
+            isSuccess.value = false
+            errMsg.value =
+              rule.length > 0
+                ? rule.map((item) => item.message).join()
+                : 'error'
           } else {
+            isSuccess.value = true
             errMsg.value = 'success'
           }
         })
       }
-
-      return flag
+      cb(isSuccess.value)
+      return isSuccess.value
     }
 
     const formItemContext = reactive({
@@ -62,36 +64,33 @@ export default defineComponent({
     provide('c-form-item', formItemContext)
 
     formItemMitt.on('handleBlurValidate', validate)
-    return { errMsg }
-  },
-  render() {
-    const { $slots, label, errMsg } = this
-    return h(
-      'div',
-      {
-        class: 'c-form-item',
-      },
-      [
-        h(
-          'span',
-          {
-            class: 'c-form-label',
-          },
-          label,
-        ),
-        $slots.default?.(),
-        h(
-          'span',
-          {
-            class: {
-              success: errMsg === 'success',
-              error: errMsg === 'error',
+    return () =>
+      h(
+        'div',
+        {
+          class: 'c-form-item',
+        },
+        [
+          h(
+            'span',
+            {
+              class: 'c-form-label',
             },
-          },
-          errMsg,
-        ),
-      ],
-    )
+            props.label,
+          ),
+          slots.default?.(),
+          h(
+            'span',
+            {
+              class: {
+                success: isSuccess.value,
+                error: !isSuccess.value,
+              },
+            },
+            errMsg.value,
+          ),
+        ],
+      )
   },
 })
 </script>

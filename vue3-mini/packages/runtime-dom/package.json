@@ -1,0 +1,14 @@
+{
+  "name": "@vue3-mini/runtim-dom",
+  "version": "1.0.0",
+  "main": "index.js",
+  "module": "dist/runtim-dom.esm-bundler.js",
+  "license": "MIT",
+  "buildOptions": {
+    "name": "Vue3MiniRuntimDom",
+    "formats": [
+      "esm-builder",
+      "global"
+    ]
+  }
+}

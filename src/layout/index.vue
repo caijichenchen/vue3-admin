@@ -26,7 +26,10 @@
         </div>
       </div>
       <div class="vd-layout__container">
-        <div class="vd-container__aside">
+        <div
+          class="vd-container__aside"
+          :class="!openAside && 'vd-aside-hidden'"
+        >
           <aside-menus />
         </div>
         <div class="vd-container__main">
@@ -44,7 +47,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue'
-import useSidebarOpen from './Hooks/useSidebarOpen'
+// import useSidebarOpen from './Hooks/useSidebarOpen'
 // import Navbar from './components/Navbar/index.vue'
 // import AppMain from './components/AppMain/index.vue'
 // import Sidebar from './components/Sidebar/index.vue'
@@ -58,7 +61,7 @@ import visitedTabs from './components/visited-tabs/index.vue'
 import asideMenus from './components/aside-menus/index.vue'
 
 // import setThemeHook from './Hooks/useSetTheme'
-import { useStore } from 'vuex'
+import { mapState, useStore } from 'vuex'
 export default defineComponent({
   components: {
     headerLogo,
@@ -83,14 +86,12 @@ export default defineComponent({
           }
         : {}
     })
-    // store.dispatch('permission/getRoleRoutes')
-    // const routes = computed(() => store.state.permission.routersMap)
-    // console.log(2, routes)
-
-    const { sidebarOpen } = useSidebarOpen()
+    // const { sidebarOpen } = useSidebarOpen()
+    const openAside = computed(() => store.state.app.asideOpen)
     return {
       groupBgStyle,
-      sidebarOpen,
+      openAside,
+      // sidebarOpen,
     }
   },
 })

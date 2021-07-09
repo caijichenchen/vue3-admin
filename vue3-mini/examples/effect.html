@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>effect</title>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+<script src="../node_modules/@vue3-mini/reactivity/dist/reactivity.global.js"></script>
+<script>
+  const {effect, reactive} = Vue3MiniReactivity
+  // console.log('effect',effect);
+  const obj = reactive({name: 'c',age:1, arr:[1,2,3,4]})
+  const root = document.getElementById('root')
+  effect(() => {
+    // root.innerHTML = obj.name + obj.age + obj.arr[3] + obj.arr.length
+    root.innerHTML = obj.arr
+  })
+
+  setTimeout(() => {
+    // obj.name = 'xx'
+    // obj.arr.length = 2
+    obj.arr[100] = 9
+    // console.log('o',obj.arr[3]);
+  },2000)
+</script>
+</html>

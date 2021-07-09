@@ -140,11 +140,12 @@ const actions: ActionTree<VisitedRouteState, RootState> & VisitedRouteActions =
     delSelectRoute({ commit, state }, selectedPath) {
       const _index = state.list.findIndex((item) => item.path === selectedPath)
       if (selectedPath === state.current) {
-        const len = state.list.length
+        const len = state.list.length - 1
         const nextIndex = _index === len ? len - 1 : _index
         const next = state.list[nextIndex]
         router.push({ path: next.path, query: next.query, params: next.params })
       }
+      commit('deleteSelectVisitedRoute', _index)
       commit('setDbRoutes')
     },
     delLeftRoutes({ commit, state }, path: string) {

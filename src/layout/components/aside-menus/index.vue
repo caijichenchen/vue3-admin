@@ -1,7 +1,7 @@
 <template>
   <div class="vd-container-aside-wrapper">
     <el-scrollbar wrap-class="vd-aside-menu-wrapper">
-      <el-menu :default-active="currentPath">
+      <el-menu :default-active="currentPath" :collapse="openAside">
         <aside-menu :routes="routes" />
       </el-menu>
     </el-scrollbar>

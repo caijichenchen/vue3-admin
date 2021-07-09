@@ -1,4 +1,4 @@
-import { RuleItem } from 'async-validator'
+// import { RuleItem } from 'async-validator'
 import type { Emitter } from 'mitt'
 
 export interface CFormItemContext {
@@ -10,12 +10,14 @@ export interface ValidateFieldCallback {
   (isValid?: boolean): void
 }
 
-interface RuleItemType {
-  [key: string]: RuleItem
+export interface RuleItem {
+  required: boolean
+  message: string
+  trigger: string
 }
 
 export interface CFormContext {
-  rules: RuleItemType
+  rules: { [key: string]: Array<RuleItem> }
   model: Record<string, unknown>
   formMitt: Emitter
   validate(callback?: ValidateFieldCallback): void

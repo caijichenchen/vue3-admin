@@ -23,5 +23,11 @@ export default {
       meta: { title: '波纹' },
       component: () => import('@/views/directive/waves/index.vue'),
     },
+    {
+      path: 'skeleton',
+      name: `${pre}-skeleton`,
+      meta: { title: '骨架屏' },
+      component: () => import('@/views/directive/skeleton/index.vue'),
+    },
   ])('directives'),
 }

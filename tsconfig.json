@@ -9,6 +9,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
@@ -26,13 +27,13 @@
       "scripthost"
     ]
   },
-//   "include": [
-//     "src/**/*.ts",
-//     "src/**/*.tsx",
-//     "src/**/*.vue",
-//     "tests/**/*.ts",
-//     "tests/**/*.tsx"
-// , "src/layout/components/header-toogle-btn/index.js"  ],
+  //   "include": [
+  //     "src/**/*.ts",
+  //     "src/**/*.tsx",
+  //     "src/**/*.vue",
+  //     "tests/**/*.ts",
+  //     "tests/**/*.tsx"
+  // , "src/layout/components/header-toogle-btn/index.js"  ],
   "exclude": [
     "node_modules"
   ]

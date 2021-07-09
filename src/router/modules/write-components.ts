@@ -29,5 +29,11 @@ export default {
       meta: { title: '折叠面板' },
       component: () => import('@/views/write-component/collapse/index.vue'),
     },
+    {
+      path: 'tree',
+      name: `${pre}tree`,
+      meta: { title: '树' },
+      component: () => import('@/views/write-component/tree/index.vue'),
+    },
   ])('write-components-'),
 }

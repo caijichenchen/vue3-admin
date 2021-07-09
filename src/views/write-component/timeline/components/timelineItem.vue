@@ -1,38 +1,37 @@
 <template>
-  <li class="c-timeline-item">
-    <span class="c-timeline-item__tail" />
+  <div class="timeline-item">
     <div
       v-if="!$slots.dot"
       :class="[
-        'c-timeline-item__node',
-        `c-timeline-item__node--${size}`,
-        `c-timeline-item__node--${type}`,
+        'timeline-item__node',
+        `timeline-item--${size}`,
+        `timeline-item__${type}`,
       ]"
       :style="{ backgroundColor: color }"
     >
-      <i v-if="icon" class="el-timeline__icon" :class="icon" />
+      <i v-if="icon" :class="icon" />
     </div>
-    <div v-if="$slots.dot" class="c-timeline-item__dot">
+    <div v-if="$slots.dot" class="timeline-item__dot">
       <slot name="dot" />
     </div>
-    <div class="c-timeline-item__wrapper">
+    <div class="timeline-item__tail" />
+    <div
+      class="timeline-item__content"
+      :style="{
+        flexDirection: placement === 'top' ? 'column' : 'column-reverse',
+      }"
+    >
       <div
-        v-if="!hideTimestamp && placement === 'top'"
-        class="c-timeline-item__timestamp"
+        v-if="!hideTimestamp"
+        :class="['timeline-item-timestamp', `is-${placement}`]"
       >
         {{ timestamp }}
       </div>
-      <div class="c-timeline-item__content">
+      <div class="timeline-item__body">
         <slot />
       </div>
-      <div
-        v-if="!hideTimestamp && placement === 'bottom'"
-        class="c-timeline-item__timestamp"
-      >
-        {{ timestamp }}
-      </div>
     </div>
-  </li>
+  </div>
 </template>
 
 <script lang="ts">
@@ -75,43 +74,48 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.c-timeline-item {
+.timeline-item {
   position: relative;
-  overflow: hidden;
   padding-bottom: 20px;
-  .c-timeline-item {
-    &__tail {
-      position: absolute;
-      left: 4px;
-      height: 100%;
-      border-left: 2px solid #e4e7ed;
-    }
-    &__node {
-      position: absolute;
-      background-color: #e4e7ed;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    &__node--normal {
-      left: -1px;
-      width: 12px;
-      height: 12px;
-    }
-    &__wrapper {
-      position: relative;
-      padding-left: 28px;
-      top: -3px;
-    }
-    &__content {
-      color: #303133;
-    }
-    &__timestamp {
-      color: #909399;
-      line-height: 1;
-      font-size: 13px;
-    }
+  &--normal {
+    left: -1px;
+    width: 12px;
+    height: 12px;
+  }
+  &__node {
+    position: absolute;
+    background-color: #e4e7ed;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__tail {
+    position: absolute;
+    left: 4px;
+    height: 100%;
+    border-left: 2px solid #e4e7ed;
+  }
+  &__content {
+    display: flex;
+    position: relative;
+    padding-left: 28px;
+    top: -4px;
+  }
+  &-timestamp {
+    color: #909399;
+    line-height: 1;
+    font-size: 13px;
+  }
+  .is-bottom {
+    margin-top: 8px;
+  }
+  .is-top {
+    padding-top: 4px;
+    margin-bottom: 8px;
+  }
+  .timeline-item__body {
+    color: #333333;
   }
 }
 </style>
