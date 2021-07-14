@@ -25,11 +25,17 @@ export const createVNode = (type, props, children = null) => {
 function normalizeChildren(vnode, children) {
   let type = 0
   if (children === null) {
-    console.log()
+    //
   } else if (isArray(children)) {
     type = ShapeFlags.ARRAY_CHILDREN
   } else {
     type = ShapeFlags.TEXT_CHILDREN
   }
   vnode.shapeFlag |= type
+}
+
+export const Text = Symbol('Text')
+export function normalizeVNode(child) {
+  if (isObject(child)) return child
+  return createVNode(Text, null, String(child))
 }

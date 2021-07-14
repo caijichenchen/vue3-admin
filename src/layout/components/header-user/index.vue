@@ -4,7 +4,8 @@
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item command="logout" icon="el-icon-switch-button">
-          退出登录
+          <!-- 退出登录 -->
+          {{ $t('header_menu.logout') }}
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>

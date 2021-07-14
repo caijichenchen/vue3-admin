@@ -1,5 +1,7 @@
 <template>
-  <div>1</div>
+  <div>
+    <el-tree empty-text="没有" />
+  </div>
 </template>
 
 <script lang="ts">

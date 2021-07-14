@@ -5,16 +5,38 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>createApp</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
 </head>
 <body>
   <div id="root"></div>
 </body>
 <script src="../node_modules/@vue3-mini/runtim-dom/dist/runtime-dom.global.js"></script>
 <script>
-  const {createApp} = Vue3MiniRuntimDom
+  const {createApp,h,reactive} = Vue3MiniRuntimDom
   const app = {
-
+    setup() {
+      const state = reactive({name: 'ccc', flag:true})
+      const change = ()=> {
+        state.name = 111
+        state.name += +new Date()
+        
+      }
+      setTimeout(() => {
+        state.flag = false
+      }, 2000)
+      // return () => h('div', {class:'box',style:{backgroundColor:'red'}},['hello','world'])
+      // return () => h('div',{onClick: change}, state.name)
+      return ()=> state.flag ? h('div', {style: {color: 'red'}},'11111') : h('p', {style: {color: 'blue'}},'22222')
+    }
+    // render() {
+    //   return h('div', {style: {color:'red'}})
+    // }
   }
-  createApp(app).mount('#root')
+  createApp(app, {name: 'cccc'}).mount('#root')
 </script>
 </html>

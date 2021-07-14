@@ -9,6 +9,7 @@ import { VisitedRouteItem } from '@/store/modules/visited'
 const themeKey = 'theme'
 const visitedRoutesKey = 'visitedRoutes'
 const asideOpenKey = 'asideStatus'
+const languageKey = 'language'
 
 export function setTheme(theme: string) {
   return Cookies.set(themeKey, theme)
@@ -28,3 +29,8 @@ export const removeVisitedRoutes = () => Cookies.remove(visitedRoutesKey)
 
 export const getAsideOpen = () => !+(Cookies.get(asideOpenKey) || 0)
 export const setAsideOpen = (value: string) => Cookies.set(asideOpenKey, value)
+
+export const getLanguage = () => localStorage.getItem(languageKey) || 'ch'
+export const setLanguage = (val: string) =>
+  localStorage.setItem(languageKey, val)
+export const removeLanguage = () => localStorage.removeItem(languageKey)

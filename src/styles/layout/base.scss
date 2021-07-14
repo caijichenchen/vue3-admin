@@ -62,7 +62,6 @@
         transition: width 0.3s;
         overflow: hidden;
         .el-menu {
-          // overflow: hidden;
           border-right: none;
           background-color: transparent;
         }
@@ -87,6 +86,10 @@
       }
       .vd-container__aside.vd-aside-hidden {
         width: $closeAsideWidth;
+        .el-submenu__title {
+          // display: none;
+          opacity: 0;
+        }
 
         .el-menu--collapse {
           background-color: transparent;

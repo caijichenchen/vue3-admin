@@ -9,7 +9,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "suppressImplicitAnyIndexErrors": true, // 对象key
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
@@ -21,19 +21,13 @@
       ]
     },
     "lib": [
+      // "es2017.object", // object.entries
       "esnext",
       "dom",
       "dom.iterable",
       "scripthost"
     ]
   },
-  //   "include": [
-  //     "src/**/*.ts",
-  //     "src/**/*.tsx",
-  //     "src/**/*.vue",
-  //     "tests/**/*.ts",
-  //     "tests/**/*.tsx"
-  // , "src/layout/components/header-toogle-btn/index.js"  ],
   "exclude": [
     "node_modules"
   ]

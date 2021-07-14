@@ -67,9 +67,7 @@ function track(target, type, key) {
 }
 // 依赖触发更新
 function trigger(target, type, key?, value?, oldValue?) {
-  // console.log('key', target, type, key, value, oldValue)
   const depsMap = targetsMap.get(target)
-  console.log('3', targetsMap)
   if (!depsMap) return // 没有收集过effect依赖直接返回
 
   // 创建一个集合 统一执行副作用  去重
@@ -85,7 +83,6 @@ function trigger(target, type, key?, value?, oldValue?) {
    */
   if (isArray(target) && key === 'length') {
     depsMap.forEach((dep, key) => {
-      // console.log('111', dep, key)
       /**
        * 查找收集过的key是否符合条件
        * 1. obj.arr.length 当修改数组长度时候收集过的arr.length需要改变
@@ -106,14 +103,13 @@ function trigger(target, type, key?, value?, oldValue?) {
         if (isArray(target) && isIntegerKey(key)) {
           addEffect(depsMap.get('length'))
         }
-
         break
     }
   }
 
   effects.forEach((effect: any) => {
     if (effect.options.scheduler) {
-      effect.options.scheduler()
+      effect.options.scheduler(effect)
     } else {
       effect()
     }

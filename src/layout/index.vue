@@ -21,11 +21,12 @@
         <div class="header-right">
           <header-search />
           <header-screenfull />
+          <header-language />
           <header-theme />
           <header-user />
         </div>
       </div>
-      <div class="vd-layout__container">
+      <div class="vd-layout__container" style="overflow: hidden">
         <div
           class="vd-container__aside"
           :class="!openAside && 'vd-aside-hidden'"
@@ -54,6 +55,7 @@ import { computed, defineComponent, ref, watch } from 'vue'
 import headerLogo from './components/header-logo/index.vue'
 import headerToggleBtn from './components/header-toogle-btn/index.ts'
 import headerSearch from './components/header-search/index.vue'
+import headerLanguage from './components/header-language/index.vue'
 import headerScreenfull from './components/header-screenfull/index.vue'
 import headerTheme from './components/header-theme/index.vue'
 import headerUser from './components/header-user/index.vue'
@@ -65,6 +67,7 @@ import { mapState, useStore } from 'vuex'
 export default defineComponent({
   components: {
     headerLogo,
+    headerLanguage,
     headerToggleBtn,
     headerSearch,
     headerScreenfull,

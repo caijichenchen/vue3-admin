@@ -5,5 +5,6 @@ declare module '*.vue' {
   export default component
 }
 declare module '*.ts'
+declare module 'sortablejs'
 
 declare type Nullable<T> = T | null

@@ -12,5 +12,11 @@ export default {
       meta: { title: 'form' },
       component: () => import('@/views/expand/form/index.vue'),
     },
+    {
+      path: `${pre}tree`,
+      name: `${pre}tree`,
+      meta: { title: 'tree' },
+      component: () => import('@/views/expand/tree/index.vue'),
+    },
   ])('vd-'),
 }

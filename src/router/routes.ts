@@ -9,4 +9,14 @@ files.keys().forEach((file: string) => {
 
 const routes = Object.values(modules) as RouteItem[]
 
-export default routes
+const base = [
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/index.vue'),
+    meta: { title: '登录' },
+    hidden: true,
+  },
+]
+
+export default [...base, ...routes]

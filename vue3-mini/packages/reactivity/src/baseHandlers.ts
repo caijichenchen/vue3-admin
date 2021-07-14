@@ -38,7 +38,6 @@ function createGetter(isReadonly = false, isShallow = false) {
 }
 
 function createSetter(isShallow = false) {
-  // console.log('222')
   return function set(target, key, value, receiver) {
     const oldVlaue = target[key]
     const hasKey =

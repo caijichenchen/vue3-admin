@@ -1,5 +1,5 @@
 <template>
-  <div>1</div>
+  <div class="loading-box">loading...</div>
 </template>
 
 <script lang="ts">

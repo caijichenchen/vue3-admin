@@ -51,25 +51,39 @@
 
 <script lang="ts">
 import { RouteItem } from '@/router/router.type'
-import { computed, defineComponent, reactive } from 'vue'
+import { computed, defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import contextmenuPanel from '../contextmenu-panel/index'
 import contextmenuList from '../contextmenu-panel/list'
+import Sortable from 'sortablejs'
 
 export default defineComponent({
   components: { contextmenuPanel, contextmenuList },
   setup() {
-    const store = useStore()
-    const $route = useRoute()
-    const router = useRouter()
-
     const menuList = [
       { icon: 'el-icon-d-arrow-left', content: '关闭左侧', value: 'left' },
       { icon: 'el-icon-d-arrow-right', content: '关闭右侧', value: 'right' },
       { icon: 'el-icon-close', content: '关闭其它', value: 'other' },
       { icon: 'el-icon-circle-close', content: '关闭全部', value: 'all' },
     ]
+    const store = useStore()
+    const $route = useRoute()
+    const router = useRouter()
+
+    // const vdTabs = ref<Nullable<HTMLElement>>(null)
+
+    onMounted(() => {
+      const vdTabs = document.querySelectorAll(
+        '.vd-visited-tabs .el-tabs__nav',
+      )[0] as HTMLElement
+      Sortable.create(vdTabs, {
+        onEnd: (e: any) => {
+          const { newIndex, oldIndex } = e
+          store.dispatch('visited/sortTabs', { oldIndex, newIndex })
+        },
+      })
+    })
 
     const contextmenuInfo = reactive({
       list: menuList,
@@ -79,7 +93,6 @@ export default defineComponent({
       current: $route.path,
     })
 
-    // const visitedRoutes = store.getters['visited/visitedList']
     const visitedRoutes = computed(() => store.state.visited.list)
     const currentRoute = computed(() => store.state.visited.current)
 
@@ -146,9 +159,10 @@ export default defineComponent({
       // ...toRefs(contextmenuInfo),
       contextmenuInfo,
       visitedRoutes,
+      currentRoute,
+      // vdTabs,
       handleClick,
       removeSelectTab,
-      currentRoute,
       openContextmenu,
       handleContextmenu,
     }

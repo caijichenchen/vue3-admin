@@ -8,9 +8,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 // import forms from '../../expand/form/index.vue'
-import skeleton from '@/directive/skelleton'
+import skeleton from '@/directive/skeleton'
 export default defineComponent({
   // components: { forms },
   directives: { skeleton },
@@ -26,7 +26,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .s-box {
-  position: relative;
+  // position: relative;
 }
 .img-block {
   width: 200px;

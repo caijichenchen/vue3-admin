@@ -12,8 +12,8 @@ export const patchProps = (el, key, prev, next) => {
       patchStyle(el, prev, next)
       break
     default:
-      if (/^on[^A-Z]/.test(key)) {
-        patchEvent(el, prev, next)
+      if (/^on[A-Z]/.test(key)) {
+        patchEvent(el, key, next)
       } else {
         patchAttrs(el, key, next)
       }

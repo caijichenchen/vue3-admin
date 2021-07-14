@@ -7,6 +7,11 @@ const router = createRouter({
   routes,
 })
 
+// router.beforeEach((to, from) => {
+//   // if(to.path !=='/login')
+//   console.log(to)
+// })
+
 router.afterEach((to) => {
   // console.log('to', to)
   const targetRouteInfo = {

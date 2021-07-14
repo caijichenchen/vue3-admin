@@ -1,12 +1,17 @@
 <template>
-  <div />
+  <div>
+    <c-calender v-model="date" />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import cCalender from './components/index.vue'
 export default defineComponent({
+  components: { cCalender },
   setup() {
-    return {}
+    const date = ref(new Date())
+    return { date }
   },
 })
 </script>

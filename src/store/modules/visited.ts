@@ -51,6 +51,16 @@ type VisitedRouteMutations = {
   deleteOtherVisitedRoutes(state: VisitedRouteState, path: string): void
   setDbRoutes(state: VisitedRouteState): void
   setCurrentPath(state: VisitedRouteState, current: string): void
+  sortableTabs(
+    state: VisitedRouteState,
+    {
+      oldIndex,
+      newIndex,
+    }: {
+      oldIndex: number
+      newIndex: number
+    },
+  ): void
 }
 
 const mutations: MutationTree<VisitedRouteState> & VisitedRouteMutations = {
@@ -93,28 +103,85 @@ const mutations: MutationTree<VisitedRouteState> & VisitedRouteMutations = {
   setCurrentPath: (state: VisitedRouteState, current: string) => {
     state.current = current
   },
+  // 排序
+  sortableTabs: (state: VisitedRouteState, { oldIndex, newIndex }) => {
+    const sortPage = state.list[oldIndex]
+    state.list.splice(oldIndex, 1)
+    state.list.splice(newIndex, 0, sortPage)
+  },
 }
 
 type VisitedRouteActions = {
   addRoute(
-    // eslint-disable-next-line prettier/prettier
-    { commit, state }: { commit: Commit; state: VisitedRouteState; },
+    {
+      commit,
+      state,
+    }: {
+      commit: Commit
+      state: VisitedRouteState
+    },
     route: VisitedRouteItem,
   ): void
   delSelectRoute(
-    // eslint-disable-next-line @typescript-eslint/member-delimiter-style
-    { commit, state }: { commit: Commit; state: VisitedRouteState },
-    // eslint-disable-next-line prettier/prettier
-     selectedPath: string,
+    {
+      commit,
+      state,
+    }: {
+      commit: Commit
+      state: VisitedRouteState
+    },
+    selectedPath: string,
   ): void
-  // eslint-disable-next-line prettier/prettier
-  delLeftRoutes({ commit, state }: { commit: Commit; state: VisitedRouteState; }, path: string): void
-  // eslint-disable-next-line prettier/prettier
-  delRightRoutes({ commit }: { commit: Commit; }, path: string): void
-  // eslint-disable-next-line prettier/prettier
-  delOtherRoutes({ commit }: { commit: Commit; }, path: string): void
-  // eslint-disable-next-line prettier/prettier
-  delAllRoutes({ commit,state }: { commit: Commit; state: VisitedRouteState;}, path: string): void
+  delLeftRoutes(
+    {
+      commit,
+      state,
+    }: {
+      commit: Commit
+      state: VisitedRouteState
+    },
+    path: string,
+  ): void
+  delRightRoutes(
+    {
+      commit,
+    }: {
+      commit: Commit
+    },
+    path: string,
+  ): void
+  delOtherRoutes(
+    {
+      commit,
+    }: {
+      commit: Commit
+    },
+    path: string,
+  ): void
+  delAllRoutes(
+    {
+      commit,
+      state,
+    }: {
+      commit: Commit
+      state: VisitedRouteState
+    },
+    path: string,
+  ): void
+  sortTabs(
+    {
+      commit,
+    }: {
+      commit: Commit
+    },
+    {
+      oldIndex,
+      newIndex,
+    }: {
+      oldIndex: number
+      newIndex: number
+    },
+  ): void
 }
 
 /**
@@ -185,6 +252,10 @@ const actions: ActionTree<VisitedRouteState, RootState> & VisitedRouteActions =
       // 准备下一个页面
       const next = state.list[state.list.length - 1]
       router.push({ path: next.path, query: next.query, params: next.params })
+      commit('setDbRoutes')
+    },
+    sortTabs({ commit }, index) {
+      commit('sortableTabs', index)
       commit('setDbRoutes')
     },
   }

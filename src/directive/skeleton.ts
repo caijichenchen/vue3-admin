@@ -1,9 +1,15 @@
+import { getStyle, setStyle } from '@/utils/dom'
 import { ObjectDirective } from 'vue'
 
 const skeleton: ObjectDirective = {
-  mounted(el) {
+  mounted(el, binding) {
+    // console.log(binding)
+    console.log(typeof el)
+    const elPos = getStyle(el, 'position') as string
+    if (!['relative', 'absolute', 'fixed'].includes(elPos)) {
+      setStyle(el, 'position', 'relative')
+    }
     const { width, height, left, top } = el.getBoundingClientRect()
-    console.log(left, top)
     const mask = document.createElement('div')
     const maskStyles = {
       position: 'absolute',
@@ -15,7 +21,8 @@ const skeleton: ObjectDirective = {
       right: '0px',
       backgroundColor: '#fff',
     }
-    addStyle(mask, maskStyles)
+    setStyle(mask, maskStyles)
+    // addStyle(mask, maskStyles)
     el.appendChild(mask)
     el._mask = mask
     renderSkeleton(el, left, top, mask)
@@ -25,13 +32,9 @@ const skeleton: ObjectDirective = {
       el._mask && el.removeChild(el._mask)
     }
   },
-}
-
-// eslint-disable-next-line prettier/prettier
-function addStyle(target: HTMLElement, styles: { [key: string]: string; }) {
-  for (const key in styles) {
-    target.style[key] = styles[key]
-  }
+  unmounted(el) {
+    el._mask && el.removeChild(el._mask)
+  },
 }
 
 function renderSkeleton(
@@ -69,7 +72,7 @@ function renderSkeletonItem(
       top: styleInfo.top - top + 'px',
       borderRadius: rule.radius,
     }
-    addStyle(loadBox, styles)
+    setStyle(loadBox, styles)
     loadBox.className = 'skeleton-fade'
     el.appendChild(loadBox)
   })

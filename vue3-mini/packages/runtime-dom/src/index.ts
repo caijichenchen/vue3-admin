@@ -1,4 +1,4 @@
-import { createRender } from '@vue3-mini/runtime-core'
+import { createRender, h } from '@vue3-mini/runtime-core'
 import { assign } from '@vue3-mini/shared'
 import { nodeOpts } from './nodeOps'
 import { patchProps } from './patchProps'
@@ -26,3 +26,7 @@ export function createApp(rootComponent, rootProps = null) {
   }
   return app
 }
+
+export { h }
+
+export * from '@vue3-mini/reactivity'

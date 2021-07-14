@@ -6,6 +6,12 @@ export default {
   meta: { title: '组件' },
   children: ((pre) => [
     {
+      path: 'calender',
+      name: `${pre}calender`,
+      meta: { title: '日历' },
+      component: () => import('@/views/write-component/calender/index.vue'),
+    },
+    {
       path: 'form',
       name: `${pre}form`,
       meta: { title: '表单' },
@@ -22,6 +28,12 @@ export default {
       name: `${pre}timeline`,
       meta: { title: '时间线' },
       component: () => import('@/views/write-component/timeline/index.vue'),
+    },
+    {
+      path: 'loading',
+      name: `${pre}loading`,
+      meta: { title: '加载' },
+      component: () => import('@/views/write-component/loading/index.vue'),
     },
     {
       path: 'collapse',
